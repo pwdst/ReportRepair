@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 
-def get_exercise_lines() -> List[str]:
+def _get_exercise_lines() -> List[str]:
     # https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
     with open("exercise_part_one_input.txt", 'r') as f:
         read_data = f.read()
@@ -11,7 +11,7 @@ def get_exercise_lines() -> List[str]:
     return file_lines
 
 
-def get_report_entries(input_lines: List[str]) -> List[int]:
+def _get_report_entries(input_lines: List[str]) -> List[int]:
     entries: List[int] = []
 
     for input_line in input_lines:
@@ -26,7 +26,7 @@ def get_report_entries(input_lines: List[str]) -> List[int]:
     return entries
 
 
-def process_report_entries(entries: List[int]) -> Optional[int]:
+def _process_report_entries(entries: List[int]) -> Optional[int]:
     outer = 0
 
     # Iterate through all but the last entry in the list
@@ -53,11 +53,11 @@ def process_report_entries(entries: List[int]) -> Optional[int]:
 
 
 if __name__ == '__main__':
-    exercise_lines = get_exercise_lines()
+    exercise_lines = _get_exercise_lines()
 
-    report_entries = get_report_entries(exercise_lines)
+    report_entries = _get_report_entries(exercise_lines)
 
-    entry_score = process_report_entries(report_entries)
+    entry_score = _process_report_entries(report_entries)
 
     if entry_score is None:
         print("No matching pairs found")
