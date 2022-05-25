@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 
 def get_exercise_lines() -> List[str]:
@@ -12,19 +12,60 @@ def get_exercise_lines() -> List[str]:
 
 
 def get_report_entries(input_lines: List[str]) -> List[int]:
-    report_entries: List[int] = []
+    entries: List[int] = []
 
     for input_line in input_lines:
         try:
             int_value = int(input_line)
 
-            report_entries.append(int_value)
+            entries.append(int_value)
         except ValueError:
             print(f"The input value {input_line} is not a valid integer")
             raise
 
-    return report_entries
+    return entries
+
+
+def process_report_entries(entries: List[int]) -> Optional[int]:
+    outer = 0
+
+    for left_entry in entries:
+        if left_entry > 2020:
+            outer += 1
+            continue
+
+        inner = 0
+
+        for right_entry in entries:
+            if outer == inner:
+                inner += 1
+                continue
+
+            inner += 1
+
+            if right_entry > 2020:
+                continue
+
+            combined_entries = left_entry + right_entry
+
+            if combined_entries == 2020:
+                combined_entry_score = left_entry * right_entry
+
+                return combined_entry_score
+
+        outer += 1
+
+    return None
 
 
 if __name__ == '__main__':
     exercise_lines = get_exercise_lines()
+
+    report_entries = get_report_entries(exercise_lines)
+
+    entry_score = process_report_entries(report_entries)
+
+    if entry_score is None:
+        print("No matching pairs found")
+    else:
+        print(f"Entry score: {entry_score}")
