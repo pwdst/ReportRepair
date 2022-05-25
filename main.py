@@ -29,20 +29,14 @@ def get_report_entries(input_lines: List[str]) -> List[int]:
 def process_report_entries(entries: List[int]) -> Optional[int]:
     outer = 0
 
-    for left_entry in entries:
+    # Iterate through all but the last entry in the list
+    for left_entry in entries[:-1]:
         if left_entry > 2020:
             outer += 1
             continue
 
-        inner = 0
-
-        for right_entry in entries:
-            if outer == inner:
-                inner += 1
-                continue
-
-            inner += 1
-
+        # Compare the item with all other items to the right in the list
+        for right_entry in entries[outer + 1:]:
             if right_entry > 2020:
                 continue
 
